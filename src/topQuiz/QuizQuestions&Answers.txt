@@ -7,10 +7,27 @@ Cupertino
 Solution:
 Cupertino
 
-
-
+Multiple Choice Question
+What is the capitol of Hungary?
+4
+Gondor
+The Best
+Who Cares?
+Do I Care?
+Solution:
+Gondor
 
 Fill In The Blank Question
+What is the capitol of New Guinea?
+Solution:
+Gondor
 
+Fill In The Blank Question
+What is the capitol of New York?
+Solution:
+Jordan
 
 Scrambled Words Question
+Please unscramble the following capital city:
+Quebec
+

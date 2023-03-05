@@ -9,17 +9,25 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import topQuiz.StartWindow.ButtonEventHandler;
-
 public class GenerateCards extends JFrame{
 	
     private CardLayout cards;
     private JPanel cardPanel;
     private List<JPanel> totalCards;
     private int totalScore;
+    private List<ButtonGroup> allButtonGroups;
+    private List<String> allSolutions;
+    private List<JTextField> allFillInSolutions;
+    private JTextField fillInSelectedAnswer;
+    private int currentQuestionNumber;
 	
 	public GenerateCards()
 	{
+		currentQuestionNumber = 0;
+	    allButtonGroups = new ArrayList<>();
+	    allSolutions = new ArrayList<>();
+	    allFillInSolutions = new ArrayList<>();
+		totalScore = 0;
 		 cards = new CardLayout();
          cardPanel = new JPanel();
          // set the card layout
@@ -39,9 +47,6 @@ public class GenerateCards extends JFrame{
 		    	   String question = myReader.nextLine();
 		    	   System.out.println(question);
 		    	   String numOfChoices = myReader.nextLine();
-		    	   if (numOfChoices == "") {
-		    		    break;
-		    		}
 		    	   int numOfChoicesNum = Integer.valueOf(numOfChoices);
 		    	   for (int i = 0; i < numOfChoicesNum; i++)
 		    	   {
@@ -50,15 +55,16 @@ public class GenerateCards extends JFrame{
 		    	   }
 		    	   myReader.nextLine();
 		    	   String solution = myReader.nextLine();
+		    	   allSolutions.add(solution);
+		    	   allFillInSolutions.add(null);
 		    	   
-	        	   //ButtonGroup group = new ButtonGroup();
 	        	   JPanel newCard = new JPanel();
 	        	   Font font = new Font(("SansSerif"), Font.BOLD,27); 
 	        	   newCard.setFont(font);
 	        	   
-	        	   JLabel firstNameLabel = new JLabel(question);
-	        	   firstNameLabel.setFont(font);
-	        	   newCard.add(firstNameLabel);
+	        	   JLabel questionLabel = new JLabel(question);
+	        	   questionLabel.setFont(font);
+	        	   newCard.add(questionLabel,BorderLayout.NORTH);
 	        	   ButtonGroup group = new ButtonGroup();
 		    	   
 		           for(int i = 0; i <possibleAnswers.size(); i++)
@@ -78,11 +84,11 @@ public class GenerateCards extends JFrame{
 		        	   
 		        	   //cardPanel.add(answerChoice);
 		           }
+		           allButtonGroups.add(group);
 		           JButton submitButton = new JButton("Submit Answer");
-		           submitButton.setActionCommand("Starting Quiz");
 		           submitButton.setFont(new Font("Arial", Font.BOLD, 20));
 		           
-		           ButtonEventHandler handler = new ButtonEventHandler();
+		           MultiChoiceButtonEventHandler handler = new MultiChoiceButtonEventHandler();
 		           submitButton.addActionListener(handler);
 		           newCard.add(submitButton);
 		           
@@ -95,11 +101,78 @@ public class GenerateCards extends JFrame{
 		        
 		        else if(data.equalsIgnoreCase("Fill In The Blank Question"))
 		        {
-		        	System.out.println("Fill In The Blank Question");
+		        	String question = myReader.nextLine();
+			    	System.out.println(question);
+			    	myReader.nextLine();
+			    	String solution = myReader.nextLine();
+			    	
+			    	allSolutions.add(solution);
+			    	allButtonGroups.add(null);
+			    	
+			    	JPanel newCard = new JPanel();
+		        	Font font = new Font(("SansSerif"), Font.BOLD,27); 
+		        	newCard.setFont(font);
+		        	   
+		        	JLabel questionLabel = new JLabel(question);
+		        	questionLabel.setFont(font);
+		        	newCard.add(questionLabel);
+		        	fillInSelectedAnswer = new JTextField(10);
+		        	newCard.add(fillInSelectedAnswer);
+		        	allFillInSolutions.add(fillInSelectedAnswer);
+		        	//cardPanel.add(newCard);
+		        	
+		        	
+		        	JButton submitButton = new JButton("Submit Answer");
+			        submitButton.setFont(new Font("Arial", Font.BOLD, 20));
+			           
+			        FillInBlankButtonEventHandler handler = new FillInBlankButtonEventHandler();
+			        submitButton.addActionListener(handler);
+			        newCard.add(submitButton);
+		        	cardPanel.add(newCard);
+			        
 		        }
 		        else if(data.equalsIgnoreCase("Scrambled Words Question"))
 		        {
-		        	System.out.println("Scrambled Words Question");
+		        	String question = myReader.nextLine();
+			    	System.out.println(question);
+			    	String originalWord = myReader.nextLine();
+			    	
+			    	List<String> characters = Arrays.asList(originalWord.split(""));
+			 		Collections.shuffle(characters);
+			  		String newWord = "";
+			  		for (String character : characters)
+			  		{
+			  			newWord += character;
+			  		}
+			  		
+			    	allSolutions.add(originalWord);
+			    	allButtonGroups.add(null);
+			    	
+			    	JPanel newCard = new JPanel();
+		        	Font font = new Font(("SansSerif"), Font.BOLD,27); 
+		        	newCard.setFont(font);
+		        	   
+		        	JLabel questionLabel = new JLabel(question);
+		        	questionLabel.setFont(font);
+		        	
+		        	JLabel scrambledWord = new JLabel(newWord);
+		        	scrambledWord.setFont(font);
+		        	
+		        	newCard.add(questionLabel);
+		        	newCard.add(scrambledWord);
+		        	fillInSelectedAnswer = new JTextField(10);
+		        	newCard.add(fillInSelectedAnswer);
+		        	allFillInSolutions.add(fillInSelectedAnswer);
+		        	//cardPanel.add(newCard);
+		        	
+		        	
+		        	JButton submitButton = new JButton("Submit Answer");
+			        submitButton.setFont(new Font("Arial", Font.BOLD, 20));
+			           
+			        FillInBlankButtonEventHandler handler = new FillInBlankButtonEventHandler();
+			        submitButton.addActionListener(handler);
+			        newCard.add(submitButton);
+		        	cardPanel.add(newCard);
 		        }
 		        
 		      }
@@ -109,24 +182,95 @@ public class GenerateCards extends JFrame{
 		 {
 		      System.out.println("An error occurred, database file with questions and answers not found.");
 		      e.printStackTrace();
+		   }
+		 for (int i = 0; i < allButtonGroups.size(); i++) {
+		      System.out.println(allButtonGroups.get(i) + " ");
 		    }
 		 
+		 for (int i = 0; i < allSolutions.size(); i++) {
+		      System.out.println(allSolutions.get(i) + " ");
+		    }
+		 
+		 
+		 //NEED TO WORK ON THIS TODAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		 //Insert a for loop that goes through the List of cards that have been shuffled and add them to the CardPanel JFrame.
 	}
 	
 	
-	class ButtonEventHandler implements ActionListener { 	
-   		public void actionPerformed( ActionEvent event )
+	String getSelectedButton(ButtonGroup group)
+	{  
+	    for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();) {
+	        AbstractButton button = buttons.nextElement();
+	        if (button.isSelected()) {
+	                return button.getText();
+	        }
+	    }
+	    return null;
+	}
+	
+	//WHEN HITTING THE SUBMIT BUTTON, OPEN NEW WINDOW SAYING IF ANSWER IS RIGHT OR WRONG, THEN IF CLICK OKAY 
+	//ON WINDOW THEN CLOSES NEW WINDOWS AND MOVES TO NEXT QUESTION
+	class MultiChoiceButtonEventHandler implements ActionListener { 	
+   		public void actionPerformed(ActionEvent event)
    		{
-   			//If answer is correct, increment score and move to next question
-   			if ( (firstNameTextField.getText().equals("")) || (lastNameTextField.getText().equals("")))
+   			
+   			String selectedAnswer = getSelectedButton(allButtonGroups.get(currentQuestionNumber));
+   			if(selectedAnswer.equalsIgnoreCase(allSolutions.get(currentQuestionNumber)))
    			{
-   				errorLabel.setForeground(Color.RED);
-   				errorLabel.setText("Name not entered, please enter in your first and last name.");
+   				totalScore++;
+   				System.out.println(totalScore);
    			}
-   			//If answer is incorrect decrement score and move to next question
-   			else 
+   			else
    			{
+   				if(totalScore == 0)
+   				{
+   					totalScore = 0;
+   					System.out.println(totalScore);
+   				}
+   				else
+   				{
+   					totalScore = totalScore - 1;
+   					System.out.println(totalScore);
+   				}
+   			}
+   			 
+   			CardLayout c1 = (CardLayout)(cardPanel.getLayout());
+   			c1.next(cardPanel);
+   			currentQuestionNumber++;
+   		}
+	}
+	
+	//WHEN HITTING THE SUBMIT BUTTON, OPEN NEW WINDOW SAYING IF ANSWER IS RIGHT OR WRONG, THEN IF CLICK OKAY 
+	//ON WINDOW THEN CLOSES NEW WINDOWS AND MOVES TO NEXT QUESTION
+	class FillInBlankButtonEventHandler implements ActionListener { 	
+   		public void actionPerformed(ActionEvent event)
+   		{
+   			String selectedAnswer = allFillInSolutions.get(currentQuestionNumber).getText();
+   			if (selectedAnswer.equalsIgnoreCase(allSolutions.get(currentQuestionNumber)))
+   			{
+   				totalScore++;
+   				System.out.println(totalScore);
+   			}
+   			else
+   			{
+   				if(totalScore == 0)
+   				{
+   					totalScore = 0;
+   					System.out.println(totalScore);
+   				}
+   				else
+   				{
+   					totalScore = totalScore - 1;
+   					System.out.println(totalScore);
+   				}
+   			}
+   			 
+   			CardLayout c1 = (CardLayout)(cardPanel.getLayout());
+   			c1.next(cardPanel);
+   			currentQuestionNumber++;
+   		}
+	}
+
 	
 		 public JPanel getCardPanel()
 		 {
@@ -134,22 +278,23 @@ public class GenerateCards extends JFrame{
 		 }
 		 
 		 private JRadioButton addRadioButton(Container parent, String name)
-		    {
+		 {
 			 	JRadioButton newlyAdded = new JRadioButton(name);
 			 	//newlyAdded.setActionCommand(name);
 		        parent.add(newlyAdded);
 		        return newlyAdded;
-		    }
+		 }
 	
 	
 	
 	public static void main(String[] args) {
 		GenerateCards cards = new GenerateCards();
 		JFrame guiFrame = new JFrame();
-		guiFrame.setTitle("CardLayout Example");
+		guiFrame.setTitle("Quiz In Progress");
 	    guiFrame.setSize(400,300);
 		guiFrame.add(cards.getCardPanel(),BorderLayout.CENTER);
 		guiFrame.setVisible(true);
+		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
 		
 		
 	}
