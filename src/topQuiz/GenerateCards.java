@@ -27,6 +27,7 @@ public class GenerateCards extends JFrame{
 	    allButtonGroups = new ArrayList<>();
 	    allSolutions = new ArrayList<>();
 	    allFillInSolutions = new ArrayList<>();
+	    totalCards = new ArrayList<>();
 		totalScore = 0;
 		 cards = new CardLayout();
          cardPanel = new JPanel();
@@ -93,7 +94,9 @@ public class GenerateCards extends JFrame{
 		           newCard.add(submitButton);
 		           
 		           
-	        	   cardPanel.add(newCard);
+	        	   //cardPanel.add(newCard);
+		           totalCards.add(newCard);
+		           
 	        	   //JLabel firstNameLabel = new JLabel(question);
 	        	   //newCard.add(firstNameLabel);
 		        	
@@ -128,7 +131,8 @@ public class GenerateCards extends JFrame{
 			        FillInBlankButtonEventHandler handler = new FillInBlankButtonEventHandler();
 			        submitButton.addActionListener(handler);
 			        newCard.add(submitButton);
-		        	cardPanel.add(newCard);
+		        	//cardPanel.add(newCard);
+		        	totalCards.add(newCard);
 			        
 		        }
 		        else if(data.equalsIgnoreCase("Scrambled Words Question"))
@@ -172,7 +176,8 @@ public class GenerateCards extends JFrame{
 			        FillInBlankButtonEventHandler handler = new FillInBlankButtonEventHandler();
 			        submitButton.addActionListener(handler);
 			        newCard.add(submitButton);
-		        	cardPanel.add(newCard);
+		        	//cardPanel.add(newCard);
+		        	totalCards.add(newCard);
 		        }
 		        
 		      }
@@ -192,6 +197,16 @@ public class GenerateCards extends JFrame{
 		    }
 		 
 		 
+		 long seed = System.nanoTime();
+		 Collections.shuffle(totalCards, new Random(seed));
+		 Collections.shuffle(allButtonGroups, new Random(seed));
+		 Collections.shuffle(allSolutions, new Random(seed));
+		 Collections.shuffle(allFillInSolutions, new Random(seed));
+		 
+		 for(int i = 0; i < totalCards.size(); i++)
+		 {
+			cardPanel.add(totalCards.get(i));
+		 }
 		 //NEED TO WORK ON THIS TODAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		 //Insert a for loop that goes through the List of cards that have been shuffled and add them to the CardPanel JFrame.
 	}
