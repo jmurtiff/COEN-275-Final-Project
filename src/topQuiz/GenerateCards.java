@@ -29,8 +29,8 @@ public class GenerateCards extends JFrame{
 	    allFillInSolutions = new ArrayList<>();
 	    totalCards = new ArrayList<>();
 		totalScore = 0;
-		 cards = new CardLayout();
-         cardPanel = new JPanel();
+		cards = new CardLayout();
+        cardPanel = new JPanel();
          // set the card layout
          cardPanel.setLayout(cards);
 		 try 
@@ -91,7 +91,7 @@ public class GenerateCards extends JFrame{
 		           
 		           MultiChoiceButtonEventHandler handler = new MultiChoiceButtonEventHandler();
 		           submitButton.addActionListener(handler);
-		           newCard.add(submitButton);
+		           newCard.add(submitButton, BorderLayout.SOUTH);
 		           
 		           
 	        	   //cardPanel.add(newCard);
@@ -203,9 +203,19 @@ public class GenerateCards extends JFrame{
 		 Collections.shuffle(allSolutions, new Random(seed));
 		 Collections.shuffle(allFillInSolutions, new Random(seed));
 		 
+		 JPanel test = new JPanel();
+		 Font font = new Font(("SansSerif"), Font.BOLD,27); 
+		 test.setFont(font);
+   	   
+   	   JLabel questionLabel = new JLabel("This is a test panel");
+   	   questionLabel.setFont(font);
+   	   test.add(questionLabel,BorderLayout.NORTH);
+		 
 		 for(int i = 0; i < totalCards.size(); i++)
 		 {
-			cardPanel.add(totalCards.get(i));
+			//cardPanel.add(totalCards.get(i));
+			 cardPanel.add(totalCards.get(i),BorderLayout.SOUTH);
+			//cardPanel.add(totalCards.get(i));  
 		 }
 		 //NEED TO WORK ON THIS TODAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		 //Insert a for loop that goes through the List of cards that have been shuffled and add them to the CardPanel JFrame.
@@ -307,9 +317,11 @@ public class GenerateCards extends JFrame{
 		JFrame guiFrame = new JFrame();
 		guiFrame.setTitle("Quiz In Progress");
 	    guiFrame.setSize(400,300);
+	    guiFrame.setLocationRelativeTo(null);
+        guiFrame.setLayout(new BorderLayout());
 		guiFrame.add(cards.getCardPanel(),BorderLayout.CENTER);
 		guiFrame.setVisible(true);
-		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
+		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 	}
