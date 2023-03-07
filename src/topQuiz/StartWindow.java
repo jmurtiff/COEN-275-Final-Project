@@ -11,9 +11,6 @@ public class StartWindow extends JFrame{
 	private JButton startQuizButton;
 	private JLabel firstNameLabel,lastNameLabel, errorLabel;
 	private JTextField firstNameTextField, lastNameTextField;
-	private Container container;
-	
-	private MultipleChoiceQuestion Mutli;
 	
 	public StartWindow()
 	{
@@ -92,12 +89,15 @@ public class StartWindow extends JFrame{
    				//If they have a name and want to start a quiz, then we have to remove all containers and start the quiz.
    				//Generate all the cards that we will need. 
    				dispose();
-   				JFrame newFrame = new JFrame();
+   				JFrame guiFrame = new JFrame();
    				GenerateCards cards = new GenerateCards();
-   				newFrame.add(cards.getCardPanel(),BorderLayout.PAGE_START);
-   				newFrame.setTitle("CardLayout Example");
-   				newFrame.setSize(400,300);
-   				newFrame.setVisible(true);
+   				guiFrame.setTitle("Quiz In Progress");
+   			    guiFrame.setSize(700,400);
+   			    guiFrame.setLocationRelativeTo(null);
+   		        guiFrame.setLayout(new BorderLayout());
+   				guiFrame.add(cards.getCardPanel(),BorderLayout.CENTER);
+   				guiFrame.setVisible(true);
+   				guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    				
    				
    				//namePanel = new JPanel();

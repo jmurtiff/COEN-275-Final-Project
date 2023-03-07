@@ -11,6 +11,7 @@ import javax.swing.*;
 
 public class GenerateCards extends JFrame{
 	
+	
     private CardLayout cards;
     private JPanel cardPanel;
     private List<JPanel> totalCards;
@@ -66,6 +67,11 @@ public class GenerateCards extends JFrame{
 	        	   JLabel questionLabel = new JLabel(question);
 	        	   questionLabel.setFont(font);
 	        	   newCard.add(questionLabel,BorderLayout.NORTH);
+	        	   
+	        	   JLabel emptySpace = new JLabel("");
+	        	   questionLabel.setFont(font);
+	        	   newCard.add(emptySpace,BorderLayout.NORTH);
+	        	   
 	        	   ButtonGroup group = new ButtonGroup();
 		    	   
 		           for(int i = 0; i <possibleAnswers.size(); i++)
@@ -140,8 +146,9 @@ public class GenerateCards extends JFrame{
 		        	String question = myReader.nextLine();
 			    	System.out.println(question);
 			    	String originalWord = myReader.nextLine();
+			    	String originalWordLowerCase = originalWord.toLowerCase();
 			    	
-			    	List<String> characters = Arrays.asList(originalWord.split(""));
+			    	List<String> characters = Arrays.asList(originalWordLowerCase.split(""));
 			 		Collections.shuffle(characters);
 			  		String newWord = "";
 			  		for (String character : characters)
@@ -196,20 +203,21 @@ public class GenerateCards extends JFrame{
 		      System.out.println(allSolutions.get(i) + " ");
 		    }
 		 
-		 
+		 //Insert a for loop that goes through the List of cards that have been shuffled and add them to the CardPanel JFrame.
 		 long seed = System.nanoTime();
 		 Collections.shuffle(totalCards, new Random(seed));
 		 Collections.shuffle(allButtonGroups, new Random(seed));
 		 Collections.shuffle(allSolutions, new Random(seed));
 		 Collections.shuffle(allFillInSolutions, new Random(seed));
 		 
-		 JPanel test = new JPanel();
-		 Font font = new Font(("SansSerif"), Font.BOLD,27); 
-		 test.setFont(font);
-   	   
-   	   JLabel questionLabel = new JLabel("This is a test panel");
-   	   questionLabel.setFont(font);
-   	   test.add(questionLabel,BorderLayout.NORTH);
+		 //HOW ABOUT HERE WE ADD QUESTION NUMBERS HERE, WE JUST TAKE EACH ELEMENT IN THE totalCards ARRAY AND WE ADD A NEW JLABEL
+		 //WITH A STIRNG THAT IS THE QUESTION NUMBER (WE HAVE TO KNOW THE NUMBER OF QUESTION AHEAD OF TIME
+		 //IF WE USE totalCards.size() or totalCards.length() that gives us the total number of questions we have. 
+		 
+		 //Have a previous question and next question button on the bottom of the GUI (since these are static elements, 
+		 //we can add them pretty easily and have them be Borderlayout on the bottom of the screen). The only problem 
+		 //is when we get to the score screen since this screen should not have a previous question, submit answer, 
+		 //and next question buttons (maybe we can remove or dispose of these somehow????)
 		 
 		 for(int i = 0; i < totalCards.size(); i++)
 		 {
@@ -217,8 +225,6 @@ public class GenerateCards extends JFrame{
 			 cardPanel.add(totalCards.get(i),BorderLayout.SOUTH);
 			//cardPanel.add(totalCards.get(i));  
 		 }
-		 //NEED TO WORK ON THIS TODAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		 //Insert a for loop that goes through the List of cards that have been shuffled and add them to the CardPanel JFrame.
 	}
 	
 	
@@ -258,10 +264,39 @@ public class GenerateCards extends JFrame{
    					System.out.println(totalScore);
    				}
    			}
-   			 
-   			CardLayout c1 = (CardLayout)(cardPanel.getLayout());
-   			c1.next(cardPanel);
    			currentQuestionNumber++;
+   			
+   			if(currentQuestionNumber == 5)
+   			{
+   				//JFrame newFrame = new JFrame();
+   				JPanel newCard = new JPanel();
+	        	Font font = new Font(("SansSerif"), Font.BOLD,27); 
+	        	newCard.setFont(font);
+	        	
+	        	String finalScore = "Your final score is " + totalScore + " points.";
+	        	JLabel finalScoreLabel = new JLabel(finalScore);
+	        	finalScoreLabel.setFont(font);
+	        	
+	        	newCard.add(finalScoreLabel);
+   				cardPanel.add(newCard);
+	        	
+	        	JButton endQuizButton = new JButton("Press Here to End Quiz");
+	        	endQuizButton.setFont(new Font("Arial", Font.BOLD, 20));
+		           
+	        	EndingQuizButtonEventHandler handler = new EndingQuizButtonEventHandler();
+		        endQuizButton.addActionListener(handler);
+		        newCard.add(endQuizButton);
+	        	
+   				
+   	   			CardLayout c1 = (CardLayout)(cardPanel.getLayout());
+   	   			c1.next(cardPanel);
+   				
+   			}
+   			else
+   			{
+   	   			CardLayout c1 = (CardLayout)(cardPanel.getLayout());
+   	   			c1.next(cardPanel);
+   			}
    		}
 	}
 	
@@ -289,10 +324,47 @@ public class GenerateCards extends JFrame{
    					System.out.println(totalScore);
    				}
    			}
-   			 
-   			CardLayout c1 = (CardLayout)(cardPanel.getLayout());
-   			c1.next(cardPanel);
    			currentQuestionNumber++;
+   			
+   			if(currentQuestionNumber == 5)
+   			{
+   				//JFrame newFrame = new JFrame();
+   				JPanel newCard = new JPanel();
+	        	Font font = new Font(("SansSerif"), Font.BOLD,27); 
+	        	newCard.setFont(font);
+	        	
+	        	String finalScore = "Your final score is " + totalScore + " points.";
+	        	JLabel finalScoreLabel = new JLabel(finalScore);
+	        	finalScoreLabel.setFont(font);
+	        	
+	        	newCard.add(finalScoreLabel);
+   				cardPanel.add(newCard);
+	        	
+	        	JButton endQuizButton = new JButton("Press Here to End Quiz");
+	        	endQuizButton.setFont(new Font("Arial", Font.BOLD, 20));
+		           
+	        	EndingQuizButtonEventHandler handler = new EndingQuizButtonEventHandler();
+		        endQuizButton.addActionListener(handler);
+		        newCard.add(endQuizButton);
+   				
+   	   			CardLayout c1 = (CardLayout)(cardPanel.getLayout());
+   	   			c1.next(cardPanel);
+   				
+   			}
+   			else
+   			{
+   	   			CardLayout c1 = (CardLayout)(cardPanel.getLayout());
+   	   			c1.next(cardPanel);
+   			}
+   		}
+	}
+	
+	class EndingQuizButtonEventHandler implements ActionListener { 	
+   		public void actionPerformed(ActionEvent event)
+   		{
+   			System.exit(0);
+   			//Still need to write score data and name to a database (in this case a text file).
+   		
    		}
 	}
 
@@ -309,6 +381,7 @@ public class GenerateCards extends JFrame{
 		        parent.add(newlyAdded);
 		        return newlyAdded;
 		 }
+		 
 	
 	
 	

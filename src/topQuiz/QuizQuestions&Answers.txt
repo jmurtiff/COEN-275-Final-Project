@@ -1,33 +1,37 @@
 Multiple Choice Question
-What is the capitol of Brazil?
-3
-New Vegas
-Santa Clara
-Cupertino
+What is the capitol city of Nebraska?
+4
+Las Vegas
+Lincoln
+Salem
+Austin
 Solution:
-Cupertino
+Lincoln
 
 Multiple Choice Question
-What is the capitol of Hungary?
-4
-Gondor
-The Best
-Who Cares?
-Do I Care?
+What is the capitol city of Hungary?
+3
+Bismarck
+Bucharest
+Budapest
 Solution:
-Gondor
+Budapest
 
 Fill In The Blank Question
-What is the capitol of New Guinea?
+What is the capitol city of Papua New Guinea?
 Solution:
-Gondor
+Port Moresby
 
 Fill In The Blank Question
-What is the capitol of New York?
+What is the capitol city of Florida?
 Solution:
-Jordan
+Tallahassee
 
 Scrambled Words Question
 Please unscramble the following capital city:
-Quebec
+Harrisburg
+
+Scrambled Words Question
+Please unscramble the following capital city:
+Dover
 
