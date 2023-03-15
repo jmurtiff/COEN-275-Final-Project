@@ -266,7 +266,7 @@ public class GenerateCards extends JFrame{
    			}
    			currentQuestionNumber++;
    			
-   			if(currentQuestionNumber == 5)
+   			if(currentQuestionNumber == 6)
    			{
    				//JFrame newFrame = new JFrame();
    				JPanel newCard = new JPanel();
@@ -326,7 +326,7 @@ public class GenerateCards extends JFrame{
    			}
    			currentQuestionNumber++;
    			
-   			if(currentQuestionNumber == 5)
+   			if(currentQuestionNumber == 6)
    			{
    				//JFrame newFrame = new JFrame();
    				JPanel newCard = new JPanel();
