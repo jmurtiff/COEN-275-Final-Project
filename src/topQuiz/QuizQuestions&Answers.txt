@@ -1,3 +1,8 @@
+Fill In The Blank Question
+What is the capitol city of Papua New Guinea?
+Solution:
+Port Moresby
+
 Multiple Choice Question
 What is the capitol city of Nebraska?
 4
@@ -16,11 +21,6 @@ Bucharest
 Budapest
 Solution:
 Budapest
-
-Fill In The Blank Question
-What is the capitol city of Papua New Guinea?
-Solution:
-Port Moresby
 
 Fill In The Blank Question
 What is the capitol city of Florida?
