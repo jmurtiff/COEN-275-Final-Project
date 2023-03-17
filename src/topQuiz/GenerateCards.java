@@ -226,24 +226,20 @@ public class GenerateCards extends JFrame{
    			if(currentQuestionNumber == 7)
    			{
    				//JFrame newFrame = new JFrame();
-   				JPanel newCard = new JPanel();
-	        	Font font = new Font(("SansSerif"), Font.BOLD,27); 
-	        	newCard.setFont(font);
-	        	
-	        	String finalScore = "Your final score is " + totalScore + " points.";
-	        	JLabel finalScoreLabel = new JLabel(finalScore);
-	        	finalScoreLabel.setFont(font);
-	        	
-	        	newCard.add(finalScoreLabel);
-   				cardPanel.add(newCard);
+   				
+   				String firstName = welcome.getFirstNameTextField().getText();
+   				String lastName = welcome.getLastNameTextField().getText();
+   				FinalScoreCard finalScore = new FinalScoreCard(totalScore, firstName, lastName);
+   				
+   				cardPanel.add(finalScore.getFinalScoreCard());
 	        	
 	        	JButton endQuizButton = new JButton("Press Here to End Quiz");
 	        	endQuizButton.setFont(new Font("Arial", Font.BOLD, 20));
 		           
 	        	EndingQuizButtonEventHandler handler = new EndingQuizButtonEventHandler();
 		        endQuizButton.addActionListener(handler);
-		        newCard.add(endQuizButton);
-	        	
+		        
+		        finalScore.getFinalScoreCard().add(endQuizButton);
    				
    	   			CardLayout c1 = (CardLayout)(cardPanel.getLayout());
    	   			c1.next(cardPanel);
@@ -286,23 +282,20 @@ public class GenerateCards extends JFrame{
    			if(currentQuestionNumber == 7)
    			{
    				//JFrame newFrame = new JFrame();
-   				JPanel newCard = new JPanel();
-	        	Font font = new Font(("SansSerif"), Font.BOLD,27); 
-	        	newCard.setFont(font);
-	        	
-	        	String finalScore = "Your final score is " + totalScore + " points.";
-	        	JLabel finalScoreLabel = new JLabel(finalScore);
-	        	finalScoreLabel.setFont(font);
-	        	
-	        	newCard.add(finalScoreLabel);
-   				cardPanel.add(newCard);
+   				
+   				String firstName = welcome.getFirstNameTextField().getText();
+   				String lastName = welcome.getLastNameTextField().getText();
+   				FinalScoreCard finalScore = new FinalScoreCard(totalScore, firstName, lastName);
+   				
+   				cardPanel.add(finalScore.getFinalScoreCard());
 	        	
 	        	JButton endQuizButton = new JButton("Press Here to End Quiz");
 	        	endQuizButton.setFont(new Font("Arial", Font.BOLD, 20));
 		           
 	        	EndingQuizButtonEventHandler handler = new EndingQuizButtonEventHandler();
 		        endQuizButton.addActionListener(handler);
-		        newCard.add(endQuizButton);
+		        
+		        finalScore.getFinalScoreCard().add(endQuizButton);
    				
    	   			CardLayout c1 = (CardLayout)(cardPanel.getLayout());
    	   			c1.next(cardPanel);
@@ -320,31 +313,12 @@ public class GenerateCards extends JFrame{
    		public void actionPerformed(ActionEvent event)
    		{
    			System.exit(0);
-   			//Still need to write score data and name to a database (in this case a text file).
    		
    		}
 	}
 
-	
 		 public JPanel getCardPanel()
 		 {
 			 return cardPanel;
 		 }
-		 		 
-	
-	
-	public static void main(String[] args) {
-		GenerateCards cards = new GenerateCards();
-		JFrame guiFrame = new JFrame();
-		guiFrame.setTitle("Quiz In Progress");
-	    guiFrame.setSize(400,300);
-	    guiFrame.setLocationRelativeTo(null);
-        guiFrame.setLayout(new BorderLayout());
-		guiFrame.add(cards.getCardPanel(),BorderLayout.CENTER);
-		guiFrame.setVisible(true);
-		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-	}
-
 }

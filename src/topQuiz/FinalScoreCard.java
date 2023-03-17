@@ -1,6 +1,13 @@
 package topQuiz;
 
 import java.awt.Font;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -12,63 +19,60 @@ import javax.swing.JTextField;
 
 public class FinalScoreCard {
 	
-	private String originalWord;
-	private JPanel scrambledWordsCard;
-	private JTextField scrambledWordsUserAnswer;
+	private JPanel finalScoreCard;
 
 	public FinalScoreCard()
 	{
-		originalWord = null;
-		scrambledWordsCard = null;
-		scrambledWordsUserAnswer = null;
+		finalScoreCard = null;
 	}
 	
-	public FinalScoreCard(Scanner scan)
+	public FinalScoreCard(int totalScore, String firstName, String lastName)
 	{
-		String question = scan.nextLine();
-    	System.out.println(question);
-    	originalWord = scan.nextLine();
-    	String originalWordLowerCase = originalWord.toLowerCase();
-    	
-    	List<String> characters = Arrays.asList(originalWordLowerCase.split(""));
- 		Collections.shuffle(characters);
-  		String newWord = "";
-  		for (String character : characters)
-  		{
-  			newWord += character;
-  		}
-  		
-  		scrambledWordsCard = new JPanel();
+		finalScoreCard = new JPanel();
     	Font font = new Font(("SansSerif"), Font.BOLD,27); 
-    	scrambledWordsCard.setFont(font);
-    	   
-    	JLabel questionLabel = new JLabel(question);
-    	questionLabel.setFont(font);
+    	finalScoreCard.setFont(font);
     	
-    	JLabel scrambledWord = new JLabel(newWord);
-    	scrambledWord.setFont(font);
+    	String finalScore = "Your final score is " + totalScore + " points.";
+    	JLabel finalScoreLabel = new JLabel(finalScore);
+    	finalScoreLabel.setFont(font);
     	
-    	scrambledWordsCard.add(questionLabel);
-    	scrambledWordsCard.add(scrambledWord);
-    	scrambledWordsUserAnswer = new JTextField(10);
-    	scrambledWordsCard.add(scrambledWordsUserAnswer);
-  		
-	}
-	 
-	 
-	 public JPanel getScrambledWordsCard()
+    	finalScoreCard.add(finalScoreLabel);
+    	
+    	
+			try 
+			{
+				String totalScoreString = Integer.toString(totalScore);
+				FileWriter fileOut = new FileWriter("src/TopQuiz/FinalScores.txt", true);
+				BufferedWriter bw = new BufferedWriter(fileOut);
+				bw.write(firstName + " " + lastName);
+			    bw.newLine();
+			    bw.write(totalScoreString);
+			    bw.newLine();
+			    bw.close();
+			} 
+			
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+			
+	    	//Need code here to add score to database and create bar graph or pie chart
+	    	//Could do bar graph of each individual student
+			
+			BarChart2 chart = new BarChart2("Summary of Quiz Scores");
+			finalScoreCard.add(chart.getChartPanel());
+
+			
+			//finalScoreCard.add(WhateverBarGraphIsCalled);
+			
+		} 
+    	
+    	
+    	
+	 public JPanel getFinalScoreCard()
 	 {
-		 return scrambledWordsCard;
+		 return finalScoreCard;
 	 }
 	 
-	 public JTextField getScrambledWordsUserAnswer()
-	 {
-		 return scrambledWordsUserAnswer;
-	 }
-	 
-	 public String getOriginalWord()
-	 {
-		 return originalWord;
-	 }
 	 
 }
