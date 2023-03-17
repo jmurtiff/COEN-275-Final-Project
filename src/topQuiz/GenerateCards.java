@@ -18,7 +18,6 @@ public class GenerateCards extends JFrame{
     private List<ButtonGroup> allButtonGroups;
     private List<String> allSolutions;
     private List<JTextField> allFillInSolutions;
-    private JTextField fillInSelectedAnswer;
     private int currentQuestionNumber;
     private WelcomeScreenCard welcome;
 	
@@ -38,7 +37,7 @@ public class GenerateCards extends JFrame{
         JButton startQuizButton = new JButton("Press Here to Start Quiz");
         //startQuizButton.setActionCommand("Starting Quiz");
         startQuizButton.setFont(new Font("Arial", Font.BOLD, 20));   
-        ButtonEventHandler handler = new ButtonEventHandler();
+        WelcomeScreenButtonEventHandler handler = new WelcomeScreenButtonEventHandler();
         startQuizButton.addActionListener(handler);
         welcome.getCard().add(startQuizButton, BorderLayout.SOUTH);  
         
@@ -80,81 +79,39 @@ public class GenerateCards extends JFrame{
 		        
 		        else if(data.equalsIgnoreCase("Fill In The Blank Question"))
 		        {
-		        	String question = myReader.nextLine();
-			    	System.out.println(question);
-			    	myReader.nextLine();
-			    	String solution = myReader.nextLine();
+		        	FillInTheBlankCard fillIn = new FillInTheBlankCard(myReader);
 			    	
-			    	allSolutions.add(solution);
+			    	allSolutions.add(fillIn.getSolution());
 			    	allButtonGroups.add(null);
+			    	allFillInSolutions.add(fillIn.getfillInSelectedAnswer());
 			    	
-			    	JPanel newCard = new JPanel();
-		        	Font font = new Font(("SansSerif"), Font.BOLD,27); 
-		        	newCard.setFont(font);
-		        	   
-		        	JLabel questionLabel = new JLabel(question);
-		        	questionLabel.setFont(font);
-		        	newCard.add(questionLabel);
-		        	fillInSelectedAnswer = new JTextField(10);
-		        	newCard.add(fillInSelectedAnswer);
-		        	allFillInSolutions.add(fillInSelectedAnswer);
-		        	//cardPanel.add(newCard);
-		        	
 		        	
 		        	JButton submitButton = new JButton("Submit Answer");
 			        submitButton.setFont(new Font("Arial", Font.BOLD, 20));
 			           
 			        FillInBlankButtonEventHandler handler2 = new FillInBlankButtonEventHandler();
 			        submitButton.addActionListener(handler2);
-			        newCard.add(submitButton);
-		        	//cardPanel.add(newCard);
-		        	totalCards.add(newCard);
+			        fillIn.getFillInTheBlankCard().add(submitButton);
+		        	totalCards.add(fillIn.getFillInTheBlankCard());
 			        
 		        }
 		        else if(data.equalsIgnoreCase("Scrambled Words Question"))
 		        {
-		        	String question = myReader.nextLine();
-			    	System.out.println(question);
-			    	String originalWord = myReader.nextLine();
-			    	String originalWordLowerCase = originalWord.toLowerCase();
-			    	
-			    	List<String> characters = Arrays.asList(originalWordLowerCase.split(""));
-			 		Collections.shuffle(characters);
-			  		String newWord = "";
-			  		for (String character : characters)
-			  		{
-			  			newWord += character;
-			  		}
+		        	ScrambledWordsCard scrambled = new ScrambledWordsCard(myReader);
 			  		
-			    	allSolutions.add(originalWord);
+			    	allSolutions.add(scrambled.getOriginalWord());
 			    	allButtonGroups.add(null);
 			    	
-			    	JPanel newCard = new JPanel();
-		        	Font font = new Font(("SansSerif"), Font.BOLD,27); 
-		        	newCard.setFont(font);
-		        	   
-		        	JLabel questionLabel = new JLabel(question);
-		        	questionLabel.setFont(font);
-		        	
-		        	JLabel scrambledWord = new JLabel(newWord);
-		        	scrambledWord.setFont(font);
-		        	
-		        	newCard.add(questionLabel);
-		        	newCard.add(scrambledWord);
-		        	fillInSelectedAnswer = new JTextField(10);
-		        	newCard.add(fillInSelectedAnswer);
-		        	allFillInSolutions.add(fillInSelectedAnswer);
-		        	//cardPanel.add(newCard);
-		        	
+		        	allFillInSolutions.add(scrambled.getScrambledWordsUserAnswer());		        	
 		        	
 		        	JButton submitButton = new JButton("Submit Answer");
 			        submitButton.setFont(new Font("Arial", Font.BOLD, 20));
 			           
 			        FillInBlankButtonEventHandler handler2 = new FillInBlankButtonEventHandler();
 			        submitButton.addActionListener(handler2);
-			        newCard.add(submitButton);
-		        	//cardPanel.add(newCard);
-		        	totalCards.add(newCard);
+			        
+			        scrambled.getScrambledWordsCard().add(submitButton);
+			        totalCards.add(scrambled.getScrambledWordsCard());
 		        }
 		        
 		      }
@@ -207,16 +164,18 @@ public class GenerateCards extends JFrame{
 	
 	String getSelectedButton(ButtonGroup group)
 	{  
-	    for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();) {
+	    for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();) 
+	    {
 	        AbstractButton button = buttons.nextElement();
-	        if (button.isSelected()) {
+	        if (button.isSelected()) 
+	        {
 	                return button.getText();
 	        }
 	    }
 	    return null;
 	}
 	
-	class ButtonEventHandler implements ActionListener 
+	class WelcomeScreenButtonEventHandler implements ActionListener 
 	{ 	
    		public void actionPerformed( ActionEvent event )
    		{

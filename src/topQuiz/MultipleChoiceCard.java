@@ -20,7 +20,9 @@ public class MultipleChoiceCard {
 
 	public MultipleChoiceCard()
 	{
-		int test = 0;
+		group = null;
+		solution = null;
+		multiChoiceCard = null;
 	}
 	
 	public MultipleChoiceCard(Scanner scan)

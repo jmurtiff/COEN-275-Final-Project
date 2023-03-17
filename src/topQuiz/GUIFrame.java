@@ -29,12 +29,6 @@ public class GUIFrame {
 	{
 		GUIFrame quizWindow = new GUIFrame();
 		quizWindow.showGUI();
-		
-		
-		//quizWindow.showGUI();
-		
-		// TODO Auto-generated method stub
-
 	}
 
 }
