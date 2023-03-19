@@ -15,10 +15,10 @@ public class GenerateCards extends JFrame{
     protected JPanel cardPanel;
     private List<JPanel> totalCards;
     private int totalScore;
+    private int currentQuestionNumber;
     private List<ButtonGroup> allButtonGroups;
     private List<String> allSolutions;
     private List<JTextField> allFillInSolutions;
-    private int currentQuestionNumber;
     private WelcomeScreenCard welcome;
 	
 	public GenerateCards()
