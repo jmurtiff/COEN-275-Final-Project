@@ -59,7 +59,7 @@ public class FinalScoreCard {
 	    	//Need code here to add score to database and create bar graph or pie chart
 	    	//Could do bar graph of each individual student
 			
-			BarChart2 chart = new BarChart2("Summary of Quiz Scores");
+			BarChart chart = new BarChart("Summary of Quiz Scores");
 			finalScoreCard.add(chart.getChartPanel());
 
 			
