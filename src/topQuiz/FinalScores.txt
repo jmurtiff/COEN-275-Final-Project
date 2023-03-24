@@ -6,9 +6,5 @@ Snoopy Dog
 1
 Mary Sue
 0
-Demo User
+Test User
 4
-ss ss
-4
-ss ss
-3

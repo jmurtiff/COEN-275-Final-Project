@@ -55,7 +55,6 @@ public class ScrambledWordsCard {
   		
 	}
 	 
-	 
 	 public JPanel getScrambledWordsCard()
 	 {
 		 return scrambledWordsCard;

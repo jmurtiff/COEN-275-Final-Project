@@ -23,6 +23,15 @@ public class FillInTheBlankCard {
 		
 		public FillInTheBlankCard(Scanner scan)
 		{
+			
+			solution = null;
+			fillInTheBlankCard = null;
+			fillInSelectedAnswer = null;
+			generateFillInTheBlankCard(scan);
+		}
+		
+		public void generateFillInTheBlankCard(Scanner scan)
+		{
 			String question = scan.nextLine();
 	    	System.out.println(question);
 	    	scan.nextLine();

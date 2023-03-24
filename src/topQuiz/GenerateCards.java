@@ -16,6 +16,7 @@ public class GenerateCards extends JFrame{
     private List<JPanel> totalCards;
     private int totalScore;
     private int currentQuestionNumber;
+    private int totalNumOfQuestions;
     private List<ButtonGroup> allButtonGroups;
     private List<String> allSolutions;
     private List<JTextField> allFillInSolutions;
@@ -24,6 +25,7 @@ public class GenerateCards extends JFrame{
 	public GenerateCards()
 	{
 		currentQuestionNumber = 1;
+		totalNumOfQuestions = 0;
 	    allButtonGroups = new ArrayList<>();
 	    allSolutions = new ArrayList<>();
 	    allFillInSolutions = new ArrayList<>();
@@ -31,16 +33,24 @@ public class GenerateCards extends JFrame{
 		totalScore = 0;
 		cards = new CardLayout();
         cardPanel = new JPanel();
-        // set the card layout
         cardPanel.setLayout(cards);
+        generateAllCards();
+	}
+	
+	public void generateAllCards()
+	{
+		//Generate the "welcome" card that is first shown to the user. In this case we need to add
+		//a button that moves to the first question of the quiz once the user has entered in their 
+		//first and last name.
         welcome = new WelcomeScreenCard();
         JButton startQuizButton = new JButton("Press Here to Start Quiz");
-        //startQuizButton.setActionCommand("Starting Quiz");
         startQuizButton.setFont(new Font("Arial", Font.BOLD, 20));   
         WelcomeScreenButtonEventHandler handler = new WelcomeScreenButtonEventHandler();
         startQuizButton.addActionListener(handler);
         welcome.getCard().add(startQuizButton, BorderLayout.SOUTH);  
         
+        //Each card that we generate for the card layout must be added to the "totalCards" array 
+        //so that we have a record 
 	    totalCards.add(welcome.getCard());
 	    allButtonGroups.add(null);
 	    allSolutions.add(null);
@@ -153,6 +163,8 @@ public class GenerateCards extends JFrame{
 		 //is when we get to the score screen since this screen should not have a previous question, submit answer, 
 		 //and next question buttons (maybe we can remove or dispose of these somehow????)
 		 
+		 totalNumOfQuestions = totalCards.size();
+		 
 		 for(int i = 0; i < totalCards.size(); i++)
 		 {
 			//cardPanel.add(totalCards.get(i));
@@ -223,7 +235,7 @@ public class GenerateCards extends JFrame{
    			}
    			currentQuestionNumber++;
    			
-   			if(currentQuestionNumber == 7)
+   			if(currentQuestionNumber == totalNumOfQuestions)
    			{
    				//JFrame newFrame = new JFrame();
    				
@@ -279,7 +291,7 @@ public class GenerateCards extends JFrame{
    			}
    			currentQuestionNumber++;
    			
-   			if(currentQuestionNumber == 7)
+   			if(currentQuestionNumber == totalNumOfQuestions)
    			{
    				//JFrame newFrame = new JFrame();
    				
