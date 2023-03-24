@@ -67,7 +67,7 @@ public class FillInTheBlankCard {
 	}
 		 
 	//This getter is used in the GenerateCards class in order to add the solution for 
-	//a given fill in the blank question the array of all fill In The blank solutions.
+	//a given fill in the blank question the array of all fill In the blank solutions.
 	//This allows us to check the solutions of a given question against what a given student
 	//provides.
 	public String getSolution()
@@ -84,7 +84,7 @@ public class FillInTheBlankCard {
 	
 	//This getter is used in the GenerateCards class in order to store what the student provided
 	//as a solution to a given fill in the blank question in order to compare it with the correct
-	//solution
+	//solution.
 	public JTextField getfillInSelectedAnswer()
 	{
 		return fillInSelectedAnswer;
