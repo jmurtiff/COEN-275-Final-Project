@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-
 //The MultipleChoiceCard class is used to generate the JPanel 
 //that is going to be shown to the user for each multiple choice question.
 //Each instance of MultipleChoiceCard is unique as each multiple choice question

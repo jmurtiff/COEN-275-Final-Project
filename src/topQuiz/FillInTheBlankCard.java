@@ -49,6 +49,8 @@ public class FillInTheBlankCard {
 	//the instance variable "solution" with this value read from the file. Finally, a JTextField is added
 	//to the JPanel where the student is going to write in their solution to the fill in the blank question.
 	//Additional code is written for fonts to keep the font style and size the same between all JPanels.
+	//The solution that the student gives for the question can be uppercase or lowercase, it does not matter which case the user
+	//utilizes, as if they give the correct spelling, the answer will be marked as correct.
 	public void generateFillInTheBlankCard(Scanner scan)
 	{
 		String question = scan.nextLine();
